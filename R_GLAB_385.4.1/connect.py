@@ -10,7 +10,7 @@ try:
         connection = mydbconnection.connect(
             database='classicmodels',
             user='root',
-            password='Raqeeb@123'
+            password='Yes'
         )
         if connection.is_connected():
                     print('Connected to MySQL database')
