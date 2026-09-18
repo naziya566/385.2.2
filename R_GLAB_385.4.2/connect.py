@@ -16,7 +16,7 @@ def connect():
         conn = mydbconnection.connect(
             database='usersdb',
             user='root',
-            password='Raqeeb@123' # password for mysql server
+            password='YES' # password for mysql server
         )
 
         if conn.is_connected():
