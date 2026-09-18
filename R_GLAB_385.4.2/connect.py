@@ -11,7 +11,7 @@ from mysql.connector import Error # Error function for special MySQL errors
 # Function to connect to MySQL database and insert a record into the laptop table
 def connect():
     conn = None
-# error handling for connection and query execution
+    # Error handling for connection and query execution
     try:
         conn = mydbconnection.connect(
             database='usersdb',
@@ -26,25 +26,41 @@ def connect():
         # Creates a cursor object that allows SQL actions to the MySQL server engine
         cursor = conn.cursor()
 
-        # Create a SQL Query we want to run
+# Create a SQL Query we want to run
+        query = '''
+            CREATE TABLE laptop (
+                ID int(11) NOT NULL,
+                Name varchar(250) NOT NULL,
+                Price float NOT NULL,
+                Purchase_date date NOT NULL
+            )
+        '''
+
+        cursor.execute(query)
+
+        print('Created Table')
+
         query = '''
             INSERT INTO laptop (Id, Name, Price, Purchase_date)
             VALUES (13, 'Mac Air M1', 1000, '2021-08-15')
         '''
 
-        # Executes query in SQL engine/server
         cursor.execute(query)
         print('Query Executed.')
-# Commit the transaction to save changes to the database
+
         conn.commit()
-        print('Transaction Commited.')
-# Print the number of records inserted successfully
-        print(f'{cursor.rowcount}: Record inserted successfully.')
-# Close the cursor to free up resources 
+        print(' Transaction Committed.')
+        print(f' {cursor.rowcount}: Record inserted successfully.')
+
     except Error as e:
-        print(f'Error: {e}')
-# Close the connection to the database in the finally block to ensure it happens regardless of success or failure
+        print(f' Error: {e}')
+
     finally:
         if conn is not None and conn.is_connected():
             conn.close()
-            print(' Connection Closed')
+            print('Connection Closed')
+
+
+
+if __name__ == "__main__":
+    connect()
